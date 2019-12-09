@@ -1,16 +1,17 @@
 <template>
   <el-card :header="$route.meta.title" shadow="always">
     <el-form inline :model="listQuery" @submit.native="search" @submit.native.prevent>
-      <el-form-item>
-        <el-select placeholder="请选择" v-model="value">
-          <el-option label="简单" value="TITLE"></el-option>
-          <el-option label="困难" value="USER_ID"></el-option>
-          <el-option label="专家" value="USER_ID1"></el-option>
-        </el-select>
+      <el-form-item label="关卡：">
+        <el-input placeholder="请输入关卡" v-model="listQuery.keyword"></el-input>
       </el-form-item>
-
+      <el-form-item label="用户名：">
+        <el-input placeholder="请输入用户名" v-model="listQuery.keyword"></el-input>
+      </el-form-item>
+      <el-form-item label="状态：">
+        <el-input placeholder="请输入状态" v-model="listQuery.keyword"></el-input>
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleCreate" icon="el-icon-edit">添加</el-button>
+        <el-button type="primary" native-type="submit" icon="el-icon-search">查询</el-button>
       </el-form-item>
     </el-form>
 
@@ -24,12 +25,10 @@
       max-height="640"
       stripe="true"
     >
-      <el-table-column label="序号" type="index" width="50" text-align></el-table-column>
-      <el-table-column label="难度" width="220" prop="userId"></el-table-column>
-      <el-table-column label="图片" width="300" prop="location"></el-table-column>
-      <el-table-column label="状态" width="300" prop="location"></el-table-column>
-      <el-table-column label="排序" width="300" prop="location"></el-table-column>
-      <!-- <el-table-column label="类别" width="120" prop="category">
+      <el-table-column label="序号" type="index" width="50"></el-table-column>
+      <el-table-column label="用户" width="120" prop="userId"></el-table-column>
+      <el-table-column label="位置" width="200" prop="location"></el-table-column>
+      <el-table-column label="类别" width="120" prop="category">
         <template slot-scope="scope">
           <el-tag :type="scope.row.category | categoryColor">
             {{
@@ -48,9 +47,9 @@
             }}
           </span>
         </template>
-      </el-table-column>-->
+      </el-table-column>
 
-      <el-table-column label="操作" align="center" fixed="right" width="300">
+      <el-table-column label="操作" align="center" fixed="right" width="200">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleUpdate(scope.row, scope.$index)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.row, scope.$index)">删除</el-button>
@@ -83,32 +82,21 @@
         label-width="100px"
         style="width: 400px; margin-left:50px;"
       >
-        <!-- <el-form-item label="类别" prop="category">
+        <el-form-item label="类别" prop="category">
           <el-radio-group v-model="dataForm.category" size="small">
             <el-radio label="JOB_RECRUITMENT">招聘</el-radio>
             <el-radio label="JOB_SEEKER">求职</el-radio>
             <el-radio label="SECOND_HAND_CAR">二手车</el-radio>
           </el-radio-group>
-        </el-form-item>-->
-        <el-form-item label="关数" prop="userId">
-          <el-input type="number" v-model="dataForm.userId" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="名称" prop="location">
+        <el-form-item label="用户" prop="userId">
+          <el-input type="number" v-model="dataForm.userId" disabled auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="位置" prop="location">
           <el-input type="text" v-model="dataForm.location" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="图片" prop="content">
-          <el-upload
-            class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :file-list="fileList"
-            list-type="picture"
-          >
-            <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-          </el-upload>
-          <!-- <el-input type="text" v-model="dataForm.content" auto-complete="off"></el-input> -->
+        <el-form-item label="内容" prop="content">
+          <el-input type="text" v-model="dataForm.content" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -129,7 +117,6 @@ export default {
   name: "info",
   data() {
     return {
-      value: "",
       list: [],
       total: null,
       listLoading: true,
@@ -150,19 +137,19 @@ export default {
       dialogStatus: "",
       textMap: {
         update: "编辑",
-        create: "添加"
+        create: "创建"
       },
       rules: {
         category: [
           { required: true, message: "类别不能为空", trigger: "change" }
         ],
         userId: [
-          { required: true, message: "关数不能为空", trigger: "change" }
+          { required: true, message: "用户不能为空", trigger: "change" }
         ],
         location: [
-          { required: true, message: "名称不能为空", trigger: "blur" }
+          { required: true, message: "位置不能为空", trigger: "blur" }
         ],
-        content: [{ required: true, message: "图片不能为空", trigger: "blur" }]
+        content: [{ required: true, message: "内容不能为空", trigger: "blur" }]
       },
       downloadLoading: false
     };

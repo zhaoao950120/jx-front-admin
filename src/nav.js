@@ -100,18 +100,13 @@ export default {
         children: [
           {
             name: "car_add",
-            title: "添加",
+            title: "关卡管理",
             path: "/cargame_add"
           },
           {
-            name: "car_del",
-            title: "删除",
-            path: "/car_del"
-          },
-          {
-            name: "user_list",
+            name: "cargame_userinfo",
             title: "用户列表",
-            path: "/user_list"
+            path: "/cargame_userinfo"
           },
           {
             name: "car_top",

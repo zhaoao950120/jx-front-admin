@@ -198,10 +198,26 @@ export default new Router({
           path: "/cargame_add",
           name: "cargame_add",
           meta: {
-            title: "图片添加"
+            title: "关卡管理"
           },
           component: () => import("./views/cargame_add.vue")
-        }
+        },
+        {
+          path: "/cargame_userinfo",
+          name: "cargame_userinfo",
+          meta: {
+            title: "用户列表"
+          },
+          component: () => import("./views/cargame_userinfo.vue")
+        },
+        {
+          path: "/car_top",
+          name: "car_top",
+          meta: {
+            title: "排行榜"
+          },
+          component: () => import("./views/car_top.vue")
+        },
       ]
     },
     {
